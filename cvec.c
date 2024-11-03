@@ -26,7 +26,7 @@ void *cvec_push_back(void *vec, void* data) {
         header = realloc(header, sizeof(CVecHeader) + header->capacity * header->type_size);
         vec = header + sizeof(CVecHeader);
     }
-    memccpy(vec + header->elements * header->type_size, data, 1, header->type_size);
+    memccpy(vec + (header->elements - 1) * header->type_size, data, 1, header->type_size);
     return vec;
 }
 
@@ -40,7 +40,7 @@ void *cvec_push_list(void* vec, unsigned int count, void *data) {
         header = realloc(header, sizeof(CVecHeader) + header->capacity * header->type_size);
         vec = header + sizeof(CVecHeader);
     }
-    memccpy(vec + header->elements * header->type_size, data, count, header->type_size);
+    memccpy(vec + (header->elements - 1) * header->type_size, data, count, header->type_size);
     return vec;
 }
 
