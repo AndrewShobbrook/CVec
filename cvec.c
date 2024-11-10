@@ -23,6 +23,9 @@ void *cvec_push_back(void *vec, void* data) {
     CVecHeader *header = vec - sizeof(CVecHeader);
     header->elements += 1;
     if (header->elements > header->capacity) {
+        if (header->capacity == 0) {
+          header->capacity = 1;
+        }
         header->capacity *= 2;
         printf("capacity: %lu\n", header->capacity);
         header = realloc(header, sizeof(CVecHeader) + header->capacity * header->type_size);
