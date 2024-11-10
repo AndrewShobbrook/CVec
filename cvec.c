@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -23,7 +24,9 @@ void *cvec_push_back(void *vec, void* data) {
     header->elements += 1;
     if (header->elements > header->capacity) {
         header->capacity *= 2;
+        printf("capacity: %d\n");
         header = realloc(header, sizeof(CVecHeader) + header->capacity * header->type_size);
+        printf("header: %d\n");
         vec = header + sizeof(CVecHeader);
     }
     memccpy(vec + (header->elements - 1) * header->type_size, data, 1, header->type_size);
